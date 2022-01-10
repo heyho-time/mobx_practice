@@ -60,35 +60,73 @@
 //   margin: 10px 0;
 // `;
 
-import React from "react";
-import ReactDOM from "react-dom";
-import { makeAutoObservable } from "mobx";
-import { observer } from "mobx-react-lite";
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import { makeAutoObservable } from "mobx";
+// import { observer } from "mobx-react-lite";
 
-class Timer {
-  secondsPassed = 0;
+// class Timer {
+//   secondsPassed = 0;
+
+//   constructor() {
+//     makeAutoObservable(this);
+//   }
+
+//   increaseTimer() {
+//     this.secondsPassed += 1;
+//   }
+// }
+
+// const myTimer = new Timer();
+
+// // `observer`로 감싸진 함수 컴포넌트는
+// // 이전에 사용했던 observable의 향후 변경 사항에 반응합니다.
+// const TimerView = observer(({ timer }) => (
+//   <span>Seconds passed: {timer.secondsPassed}</span>
+// ));
+
+// ReactDOM.render(<TimerView timer={myTimer} />, document.body);
+
+// setInterval(() => {
+//   myTimer.increaseTimer();
+// }, 1000);
+
+// export default Timer;
+
+import React, { Component } from "react";
+import { makeObservable, observable, action } from "mobx";
+import { observer } from "mobx-react";
+
+@observer
+class Counter extends Component {
+  number = 0;
 
   constructor() {
-    makeAutoObservable(this);
+    super();
+    makeObservable(this, {
+      number: observable,
+      increase: action,
+      decrease: action,
+    });
   }
 
-  increaseTimer() {
-    this.secondsPassed += 1;
+  increase = () => {
+    this.number++;
+  };
+
+  decrease = () => {
+    this.number--;
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>{this.number}</h1>
+        <button onClick={this.increase}>+1</button>
+        <button onClick={this.decrease}>-1</button>
+      </div>
+    );
   }
 }
 
-const myTimer = new Timer();
-
-// `observer`로 감싸진 함수 컴포넌트는
-// 이전에 사용했던 observable의 향후 변경 사항에 반응합니다.
-const TimerView = observer(({ timer }) => (
-  <span>Seconds passed: {timer.secondsPassed}</span>
-));
-
-ReactDOM.render(<TimerView timer={myTimer} />, document.body);
-
-setInterval(() => {
-  myTimer.increaseTimer();
-}, 1000);
-
-export default Timer;
+export default Counter;
