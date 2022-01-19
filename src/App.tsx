@@ -19,8 +19,8 @@ const App = observer(() => {
   const [newName, setNewName] = useState("");
   const [newPassword, setNewPassword] = useState("");
   //useStore 훅을 사용하여 todoStore를 불러옴.
-  const { todoStore } = useStore();
-  const { userStore } = useStore();
+  const { todoStore, userStore } = useStore();
+  // const { userStore } = useStore();
 
   // todo 함수
   const handleClickOpen = () => {

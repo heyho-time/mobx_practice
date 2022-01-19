@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, makeObservable, observable, action } from "mobx";
 
 class Todo {
   id;
@@ -22,17 +22,18 @@ export class TodoStore {
 
   constructor(root: any) {
     //구독할 변수와 action함수 지정
-    // makeObservable(this, {
-    //   todos: observable,
-    //   addTodo: action,
-    //   deleteTodo: action,
-    //   changeRate: action,
-    // })
-    makeAutoObservable(this); //this를 쓰면 위처럼 하나씩 지정해줄 필요없고 데코레이터도 필요없다.
+    makeObservable(this, {
+      todos: observable,
+      addTodo: action,
+      deleteTodo: action,
+      changeRate: action,
+    });
+    // makeAutoObservable(this); //this를 쓰면 위처럼 하나씩 지정해줄 필요없고 데코레이터도 필요없다.
     //어떤 원리일까,..?
+
     this.rootStore = root;
 
-    this.todos = []; //initial state 설정하는 곳.
+    this.todos = [new Todo(1, "fd", 3, "gd")]; //initial state 설정하는 곳. 근데 왜 안될까,..
   }
 
   // action
