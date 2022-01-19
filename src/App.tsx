@@ -7,9 +7,10 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import React, { useState } from "react";
-import { useStore } from "../stores/Context";
+import { useStore } from "./stores/Context";
 import { observer } from "mobx-react";
 
+//observable을 구독하는자 => observer로 컴포넌트를 감싸준다.
 const App = observer(() => {
   const [open, setOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
@@ -17,6 +18,7 @@ const App = observer(() => {
   const [newRate, setNewRate] = useState<number | null>(0);
   const [newName, setNewName] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  //useStore 훅을 사용하여 todoStore를 불러옴.
   const { todoStore } = useStore();
   const { userStore } = useStore();
 
